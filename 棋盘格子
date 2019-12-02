@@ -1,0 +1,36 @@
+
+int main()
+{
+	int n, m;
+	while (cin >> n >> m)
+	{
+		if (n == 0 || m == 0)
+		{
+			cout << "0" << endl;
+			continue;
+		}
+		int N = 0;
+		int** way;
+		way = new int*[n];
+		for (int i = 0; i <= n; i++)
+			way[i] = new int[m];
+		
+		way[0][0] = 1;
+		for (int i = 1; i <= n; i++)
+			way[i][0] = 1;
+		for (int i = 1; i <= m; i++)
+			way[0][i] = 1;
+		for (int i = 1; i <= n; i++)
+		{
+			for (int j = 1; j <= m; j++)
+			{
+				way[i][j] = way[i - 1][j] + way[i][j - 1];
+				if (way[i][j] > N)
+					N = way[i][j];
+			}
+		}
+		cout << N << endl;
+	}
+
+	return 0;
+}
