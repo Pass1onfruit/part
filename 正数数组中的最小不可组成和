@@ -1,0 +1,59 @@
+class Solution {
+public:
+	int getFirstUnFormedNum(vector<int> arr, int len) {
+		set<int> s;
+		s.insert(arr[0]);
+		for (int i = 1; i < len; i++)
+		{
+			auto it = s.begin();
+			set<int> t(s);
+			while (it != s.end())
+				t.insert(*(it++) + arr[i]);
+			t.insert(arr[i]);
+			s = t;
+		}
+		auto it = s.begin();
+		while (it != --s.end()) {
+			int t = *(it++);
+			if (*it != t + 1)
+				return t + 1;
+		}
+		return *it + 1;
+	}
+};
+
+class Solution {
+public:
+	int getFirstUnFormedNum(vector<int> arr, int len) {
+		int min = INT_MAX, max = 0;
+		for (int i = 0; i < len; i++)
+		{
+			max += arr[i];
+			if (arr[i] < min)
+				min = arr[i];
+		}
+		int* func = new int[max];
+		for (int i = 0; i < max; i++)
+			func[i] = 0;
+		for (int i = 0; i < len; i++)
+		{
+			for (int j = max + 1; j > 0; j--)
+			{
+				if (arr[i] > j)
+					continue;
+				else if (arr[i] > j - func[j])
+				{
+					if (arr[i] >= func[j])
+						func[j] = func[func[j]] + arr[i];
+				}
+				else
+					func[j] += arr[i];
+			}
+		}
+		for (int i = 0; i < max + 1; i++)
+		{
+			if (func[i] == i)
+				return i;
+		}
+	}
+};
