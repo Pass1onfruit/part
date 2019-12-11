@@ -1,0 +1,30 @@
+int fun(int num, int d)
+{
+	if (num >= 3)
+		fun((num % 3) + (num / 3), d += num / 3);
+	else if (num == 2)
+		return d + 1;
+	else
+		return d;
+}
+
+int main()
+{
+	int a[100];
+	while (cin >> a[0])
+	{
+		int i = 1;
+		while (cin >> a[i])
+		{
+			if (a[i] == 0)
+				break;
+			i++;
+		}
+		for (int j = 0; j < i; j++)
+		{
+			int d = 0;
+			cout << fun(a[j], d) << endl;
+		}
+	}
+	return 0;
+}
