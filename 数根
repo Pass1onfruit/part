@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int numRoot(int num)
+{
+  int nroot = 0;
+  while(num > 0)
+  {
+    nroot += num % 10;/*每次只获取个位数字*/
+    num /= 10;
+  }
+  while (nroot > 9)
+  {
+    nroot = numRoot(nroot);
+  }
+  return nroot;
+}
+
+int main()
+{
+  string origin;
+  while(std::cin >> origin)
+  {
+    int sum = 0;
+    for (int i = 0; i < origin.length(); i++)
+    {
+      sum += origin[i] - '0';
+    }
+  cout << numRoot(sum) << std::endl;
+  }
+  
+  return 0;
+}
