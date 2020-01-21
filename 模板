@@ -1,0 +1,114 @@
+#include <iostream>
+//#define N 20000
+using namespace std;
+
+//缺点：模板会导致代码膨胀问题，编译时间边长
+
+template<class T, size_t N>//非类型模板参数 通常情况下都是整形//传常量
+class Array
+{
+public:
+	T& operator[](size_t pos)
+	{
+		return _a[pos];
+	}
+private:
+	T _a[N];
+	size_t _size;
+};
+
+//全特化 //不需要编译器推演
+template<>//留空
+class Array<int, int>//特化类型
+{
+
+};
+
+//偏特化 半特化 //特化一部分
+template<class T1>
+class Array<T1, char>//特化类型
+{
+
+};
+
+int main()
+{
+	Array<int, 10> a1;//10
+	Array<int, 200000> a2;//200000
+	return 0;
+}
+
+//模板不支持声明和定义分离编译 // .h和.cpp
+
+//a.h  a.cpp  a.test
+//1.预处理//展开头文件，宏替换，条件编译，去注释
+//a.i  test.i
+//2/编译 //语法检查 生成汇编代码 
+//a.s  test.s
+//汇编 //汇编代码转成二进制机器码  //函数模板的实例化在链接之前不会交互，找不到模板的地址，因为没有实例化，生成.o的时候没有实例化，所以在汇编时会出现问题，导致链接错误
+//a.o  test.o
+//链接 //生产可执行程序  a.合成
+  
+//显示实例化
+//声明和定义都要放到.h
+
+//继承
+
+//写成保护protected 父类私有子类不可见
+//struct 默认继承方式  私有继承
+
+//函数名相同即可构成隐藏
+//析构函数名称都会被处理成destructor（） 所以都会构成隐藏
+//子类析构函数在函数完成后会自动调用父类的析构函数，这样才能够保证先析构子类，再析构父类
+class A
+{
+public:
+	void fun()
+	{
+		cout << "func()" << endl;
+	}
+};
+class B : public A
+{
+public:
+	void fun(int i)
+		{
+			cout << "func(int i )->" << endl;
+		}
+};
+
+
+//最终类 无法被继承 c++11
+class C final
+{
+
+};
+
+//友元关系不能被继承
+//父类析构函数定义成虚函数，子类自动重写，才能调用自己的析构函数
+
+class a
+{
+public:
+	int _a;
+};
+
+class b : public a
+{
+public:
+	int _b;
+};
+
+class c : public a
+{
+public:4
+	int _c;
+};
+
+class d : public b, public c
+{
+public:
+	int _d;
+};
+
+//继承了两个_a，数据重复
