@@ -1,0 +1,39 @@
+class Solution {
+public:
+	int searchInsert(vector<int>& nums, int target) {
+		int size = nums.size();
+		for (int i = 0; i < size; ++i)
+		{
+			if (nums[i] == target)
+				return i;
+		}
+		for (int i = 0; i < size; i++)
+		{
+			if (nums[i] > target)
+				return i;
+		}
+		if (nums[--size] < target)
+			return ++size;
+		else
+			return 0;
+	}
+};
+class Solution {
+public:
+	int searchInsert(vector<int>& nums, int target) {
+		int size = nums.size();
+		int low = 0, high = size - 1;
+		int mid;
+		while (low <= high)
+		{
+			mid = low + (high - low) / 2;
+			if (nums[mid] == target)
+				return mid;
+			else if (nums[mid] < target)
+				low = mid + 1;
+			else
+				high = mid - 1;
+		}
+		return low;
+	}
+};
