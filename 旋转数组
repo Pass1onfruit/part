@@ -1,0 +1,10 @@
+void rotate(vector<int>& nums, int k)
+{
+	int n = nums.size() - 1;
+	for (int i = 0; i < k; ++i)
+	{
+		int a = nums[n];
+		nums.insert(nums.begin(), a);
+		nums.pop_back();
+	}
+}
