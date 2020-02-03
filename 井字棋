@@ -42,7 +42,6 @@ class Board {
     }
     if(sum==row)
        return true;
-       
     return false;
   }
 };
