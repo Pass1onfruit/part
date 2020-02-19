@@ -14,12 +14,10 @@ int main()
 			{
 				b.push_back(" ");
 				n = b.size();
-				
 			}
 			
 			b.insert(it, a[i]);
 		}
 	}
-
 	return 0;
 }
